@@ -1,11 +1,11 @@
-2. Tweets
+1. Tweets
 	-> Creating
 		-> Text
 		-> Image
 	-> Delete
 	-> Retweeting
 
-1. Users
+2. Users
 	-> Register
 	-> Login
 	-> Logout
