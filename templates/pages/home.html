@@ -7,9 +7,14 @@ Home
 
 
 {% block content %}
-<h1>Hello There</h1>
 
-<div id="tweets">
+<div class="row text-center">
+	<div class="col">
+		<h1>Welcome to twitter_ish</h1>
+	</div>
+</div>
+
+<div class="row" id="tweets">
 	Loading...
 </div>
 
@@ -17,17 +22,35 @@ Home
 
 <script>
 const tweetsElement = document.getElementById('tweets');
-{% comment %} tweetsElement.innerHTML = 'Loading...'
-
-let el1 = '<h1>Hello 1</h1>';
-let el2 = '<h1>Hello 2</h1>';
-let el3 = '<h1>Hello 3</h1>';
-tweetsElement.innerHTML = el1 + el2+ el3; {% endcomment %}
 
 const xhr = new XMLHttpRequest();
 const method = 'GET';
 const url = '/tweets';
 const responseType = 'json';
+
+function handleDidLike (tweet_id, currentCount) {
+	console.log(tweet_id, currentCount);
+}
+
+function likeBtn(tweet) {
+	return "<button class='btn btn-primary btn-sm' onclick=handleDidLike(" 
+	+ tweet.id 
+	+ "," 
+	+ tweet.likes 
+	+ ")>" 
+	+ tweet.likes 
+	+ " Likes</button>"
+}
+
+function formatTweetElement(tweet) {
+	let formattedTweet = "<div class='col-12 col-md-10 mx-auto py-3 mb-4 border rounded tweet' id='tweet-" 
+	+ tweet.id 
+	+ "'><p>" + tweet.content 
+	+ "</p><div class='btn-group'>"
+	+ likeBtn(tweet) 
+	+ "</div></div>";
+	return formattedTweet
+}
 
 xhr.responseType = responseType;
 xhr.open(method, url);
@@ -37,9 +60,8 @@ xhr.onload = function() {
 	let finalTweetStr = '';
 	let i;
 	for (i = 0; i < listedItems.length; i++) {
-		console.log(i);
-		console.log(listedItems[i]);
-		let currentItem = `<div class="mb-4"><h1> ${listedItems[i].id} </h1> <p> ${listedItems[i].content} </p></div>`;
+		let tweetObj = listedItems[i];
+		let currentItem = formatTweetElement(tweetObj);
 		finalTweetStr += currentItem;
 	}
 	tweetsElement.innerHTML = finalTweetStr;
