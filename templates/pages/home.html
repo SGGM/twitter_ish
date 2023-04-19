@@ -83,6 +83,9 @@ function handleTweetCreateFormDidSubmit(event) {
 		} else if (xhr.status === 401) {
 			alert('Login in order to make a tweet');
 			window.location.href = '/login';
+		} else if (xhr.status === 403) {
+			alert('Login in order to make a tweet');
+			window.location.href = '/login';
 		} else if (xhr.status === 500) {
 			alert('A server errror occured');
 		}

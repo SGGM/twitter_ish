@@ -32,6 +32,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1']
 LOGIN_URL = '/login'
 MAX_TWEET_LENGTH = 240
+TWEET_ACTION_OPTIONS = ['like', 'unlike', 'retweet']
 
 
 # Application definition
@@ -134,3 +135,21 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+DEFAULT_RENDERER_CLASSES = [
+        'rest_framework.renderers.JSONRenderer',
+        ]
+if DEBUG:
+    DEFAULT_RENDERER_CLASSES += [
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication'
+    ],
+    'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES
+}
