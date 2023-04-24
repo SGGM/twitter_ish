@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_TWEETER_ISH_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 LOGIN_URL = '/login'
 MAX_TWEET_LENGTH = 240
 TWEET_ACTION_OPTIONS = ['like', 'unlike', 'retweet']
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Third-party
+    'corsheaders',
     'rest_framework',
     # Local
     'tweets',
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -136,6 +138,10 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_URLS_REGEX = r'^/api/.*$'
 
 
 DEFAULT_RENDERER_CLASSES = [

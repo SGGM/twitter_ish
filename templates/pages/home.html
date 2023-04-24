@@ -120,7 +120,7 @@ const tweetsContainerElement = document.getElementById('tweets');
 function loadTweets(tweetsElement) {
 	const xhr = new XMLHttpRequest();
 	const method = 'GET';
-	const url = '/tweets';
+	const url = '/tweets/';
 	const responseType = 'json';
 
 	xhr.responseType = responseType;
@@ -145,7 +145,7 @@ loadTweets(tweetsContainerElement);
 
 function handleTweetActionBtn (tweet_id, currentCount, action) {
 	console.log(tweet_id, currentCount);
-	const url = '/api/tweets/action';
+	const url = '/api/tweets/action/';
 	const method = 'POST';
 	const data = JSON.stringify({
 		id: tweet_id,

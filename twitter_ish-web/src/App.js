@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { TweetList } from './tweets';
+
 
 function App() {
-  const [tweets, setTweets] = useState([]);
   
   return (
     <div className="App">
@@ -12,6 +13,9 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
+        <div>
+          <TweetList />
+        </div>
         <a
           className="App-link"
           href="https://reactjs.org"
