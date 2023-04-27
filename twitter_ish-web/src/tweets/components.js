@@ -2,14 +2,50 @@ import React, { useEffect, useState } from "react";
 
 import { loadTweets } from "../lookup";
 
+export function TweetsComponent(props) {
 
-export function TweetList(props) {
-  	const [tweets, setTweets] = useState([]);
-	
+	const textAreaRef = React.createRef();
+	const [newTweets, setNewTweets] = useState([]);
+	const handleSubmit = (event) => {
+		event.preventDefault()
+		const newVal = textAreaRef.current.value;
+		let tempNewTweets = [...newTweets]
+		tempNewTweets.unshift({
+			content: newVal,
+			likes: 0,
+			id: 12313,
+		})
+		setNewTweets(tempNewTweets);
+		textAreaRef.current.value = '';
+	}
+		return <div className={props.className}>
+			<div className="col-12 mb-3">
+			<form onClick={handleSubmit}>
+				<textarea ref={textAreaRef} required={true} className="form-control" name="tweet">
+
+				</textarea>
+				<button type="submit" className="btn btn-primary my-3">Tweet</button>
+			</form>
+			</div>
+				<TweetsList newTweets={newTweets}/>
+		</div>
+}
+
+export function TweetsList(props) {
+  	const [tweetsInit, setTweetsInit] = useState([]);
+	const [tweets, setTweets] = useState([]);
+
+	useEffect( () => {
+		const final = [...props.newTweets].concat(tweetsInit);
+		if (final.length !== tweets.length) {
+			setTweets(final);
+		}
+	}, [props.newTweets, tweetsInit, tweets]);
+
 	useEffect( () => {
     	const myCallback = (response, status) => {
       	if (status === 200) {
-       		setTweets(response)
+			setTweetsInit(response)
       	} else {
         alert('An error ocured ;(');
       	}
